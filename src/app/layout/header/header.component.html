@@ -1,0 +1,28 @@
+<nav *ngIf="authService.isAuthenticated()" class="navbar navbar-expand-lg navbar-dark bg-indigo">
+    <a class="navbar-brand" href="/index">{{ title }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active" *ngIf="authService.hasRole(['ROLE_ADMIN', 'ROLE_USER'])">
+                <a class="nav-link" aria-current="page" routerLink="/components" title="Administración de usuarios">Componentes</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="authService.hasRole(['ROLE_ADMIN'])">
+                <a class="nav-link" aria-current="page" routerLink="/users" title="Administración de usuarios">Usuarios</a>
+            </li>
+        </ul>
+        <ul class="navbar-navnavbar-right text-center">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-person-square text-center mt-2 mr-2" style="font-size: 30px;"></i> {{ authService.user.name }} {{ authService.user.firstSurname }} {{ authService.user.secondSurname }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item text-dark" (click)="logout()" href="#">
+                        <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

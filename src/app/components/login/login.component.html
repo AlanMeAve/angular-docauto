@@ -1,0 +1,27 @@
+<div class="d-md-flex h-md-100 align-items-center div-container">
+    <div class="col-md-5 p-0 bg-indigo h-md-100">
+        <div class="text-white d-md-flex align-items-center h-100 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5 display-4">
+                {{ title }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 p-0 bg-white h-md-100 loginarea">
+        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+            <form class="border rounded p-5">
+                <h3 class="mb-4 text-center">{{ logIn }} </h3>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" autofocus="true" required [(ngModel)]="user.userName">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required [(ngModel)]="user.password">
+                </div>
+                <button type="submit" class="btn btn-success btn-round btn-block shadow-sm" (click)='login()'>Iniciar Sesión</button>
+                <small class="d-block mt-4 text-center"><a class="text-gray" href="#">Powered By</a></small>
+                <div class="text-center">
+                    <img src="/assets/images/loginLogo.png" class="pr-3" style="width: 250px;" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

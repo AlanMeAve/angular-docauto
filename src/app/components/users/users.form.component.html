@@ -1,0 +1,108 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12 display-4 text-indigo" *ngIf="userNameEdit && userNameEdit.length > 0">
+            Editar Usuario: {{ userNameEdit }}
+        </div>
+        <div class="col-sm-12 display-4 text-indigo" *ngIf="!userNameEdit">
+            Nuevo Usuario
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12">
+
+            <form #usersForm="ngForm">
+                <div class="row mt-5">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput [(ngModel)]="user.userName" name="userName" #userName="ngModel" required>
+                            <mat-error *ngIf="userName.errors?.required">
+                                Usuario es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password" name="password" #password="ngModel" required>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="password.errors?.required">
+                                Contraseña es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput [(ngModel)]="user.name" name="name" #name="ngModel" required>
+                            <mat-error *ngIf="name.errors?.required">
+                                Nombre es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>Apellido Paterno</mat-label>
+                            <input matInput [(ngModel)]="user.firstSurname" name="firstSurname" #firstSurname="ngModel" required>
+                            <mat-error *ngIf="firstSurname.errors?.required">
+                                Apellido Paterno es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>Apellido Materno</mat-label>
+                            <input matInput [(ngModel)]="user.secondSurname" name="secondSurname" #secondSurname="ngModel" required>
+                            <mat-error *ngIf="secondSurname.errors?.required">
+                                Apellido Materno es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput [(ngModel)]="user.email" placeholder="mi-correo@ejemplo.com" name="email" #email="ngModel" required>
+                            <mat-error *ngIf="email.errors?.email">
+                                Por favor ingresa un correo valido
+                            </mat-error>
+                            <mat-error *ngIf="email.errors?.required">
+                                Email es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>Rol</mat-label>
+                            <mat-select [(ngModel)]="user.role" name="role" #role="ngModel" required>
+                                <mat-option>
+                                    Seleccionar
+                                </mat-option>
+                                <mat-option *ngFor="let role of roles" [value]="role.code">
+                                    {{ role.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="role.errors?.required">
+                                Rol es obligatorio
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4 w-100">
+                        <mat-checkbox name="isActive" [(ngModel)]="user.isActive">Activo</mat-checkbox>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12 col-md-8 col-xl-4 offset-md-2 offset-xl-4">
+                        <button *ngIf="userNameEdit && userNameEdit.length > 0" mat-raised-button color="primary" [disabled]="!usersForm.form.valid" (click)="edit()" class="w-100">Guardar</button>
+                        <button *ngIf="!userNameEdit" mat-raised-button color="primary" [disabled]="!usersForm.form.valid" (click)="save()" class="w-100">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

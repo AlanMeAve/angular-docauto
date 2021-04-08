@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12 display-4 text-indigo">
+            Consulta de Documentación Técnica
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-5 offset-md-3 col-xl-5 offset-xl-3 h2 text-indigo">
+            Productos del Componente
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-12 col-xl-12">
+
+            <table class="table table-sm table-bordered rounded">
+                <thead>
+                    <tr>
+                        <th>Plataforma</th>
+                        <th>Sistema</th>
+                        <th>Biblioteca</th>
+                        <th>Clase</th>
+                        <th>Componente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ component?.platform?.idPlatform }}</td>
+                        <td>{{ component?.system?.idSystem }}</td>
+                        <td>{{ component?.library?.idLibrary }}</td>
+                        <td>{{ component?.clazz?.idClass }}</td>
+                        <td>{{ component?.component }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm-12 col-md-12 col-xl-12">
+
+            <mat-form-field>
+                <mat-label>Filtrar</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar..">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="detailComponent" matSort>
+
+                    <!-- Columna de Plataforma -->
+                    <ng-container matColumnDef="product">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.product.description }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Sistema -->
+                    <ng-container matColumnDef="format">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Formato </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.product.format }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Ver -->
+                    <ng-container matColumnDef="download">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button class="btn btn-outline-primary" (click)="downloadFile(row)" title="Descargar documento" mat-button>
+                                <i class="bi bi-download"></i>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- Fila que se muestra cuando no hay valores. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="10">
+                            No hay datos para mostrar
+                        </td>
+                    </tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 20, 50, 100, 200]"></mat-paginator>
+
+            </div>
+        </div>
+    </div>

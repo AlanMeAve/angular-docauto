@@ -1,0 +1,79 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12 display-4 text-indigo">
+            Consulta de Documentación Técnica
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-5 offset-md-3 col-xl-5 offset-xl-3 h2 text-indigo">
+            Relación de Componentes
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-12 col-xl-12">
+
+            <mat-form-field>
+                <mat-label>Filtrar</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar..">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="components" matSort>
+
+                    <!-- Columna de Plataforma -->
+                    <ng-container matColumnDef="platform">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Plataforma </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.platform.idPlatform }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Sistema -->
+                    <ng-container matColumnDef="system">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sistema </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.system.idSystem }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Biblioteca -->
+                    <ng-container matColumnDef="library">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Biblioteca </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.library.idLibrary }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Clase -->
+                    <ng-container matColumnDef="class">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Clase </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.clazz.idClass }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Componente -->
+                    <ng-container matColumnDef="component">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Componente </th>
+                        <td mat-cell *matCellDef="let row"> {{ row.component }} </td>
+                    </ng-container>
+
+                    <!-- Columna de Ver -->
+                    <ng-container matColumnDef="show">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Ver </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button class="btn btn-outline-primary ml-5" title="Ver el detalle de este componente" [routerLink]="['/components/show', row.component]" mat-button>
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- Fila que se muestra cuando no hay valores. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="10">
+                            No hay datos para mostrar
+                        </td>
+                    </tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 20, 50, 100, 200]"></mat-paginator>
+
+            </div>
+        </div>
+
+    </div>
